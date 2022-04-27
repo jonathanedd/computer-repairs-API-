@@ -16,4 +16,6 @@ const repairs = db.define('repair', {
         defaultValue: 'Pending'
     },
     userId: {}
-})
+});
+
+module.exports = { repairs };
