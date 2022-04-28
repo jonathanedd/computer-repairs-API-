@@ -1,21 +1,26 @@
 const { DataTypes } = require('sequelize');
 
-const repairs = db.define('repair', {
+const { db } = require('../utils/database')
+
+const Repairs = db.define('repair', {
     id: {
         primaryKey: true,
-        outoIncrement: true,
+        autoIncrement: true,
         allowNull: false,
         type: DataTypes.INTEGER
     },
     date: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull:false
     },
     status: {
         type: DataTypes.STRING,
         defaultValue: 'Pending'
     },
-    userId: {}
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
 });
 
-module.exports = { repairs };
+module.exports = {  Repairs };
