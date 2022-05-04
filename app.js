@@ -13,7 +13,7 @@ const { db } = require('./utils/database');
 const app = express();
 
 //PORT 
-const PORT = 4001;
+const PORT = process.env.PORT || 4001;
 
 //enable incoming JSON data
 app.use(express.json());
