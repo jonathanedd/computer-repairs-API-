@@ -34,15 +34,7 @@ const createRepair = async (req, res) => {
 
 const getRepairById = async (req, res) => {
     try {
-        const { id } = req.params;
-        const repair = await Repairs.findOne({where: { id }});
-
-        if(!repair){
-            return res.status(404).json({
-                status: 'error',
-                message: 'Repair not found with id'
-            })
-        }
+        const { repair } = req;
 
         res.status(201).json({
             repair
@@ -56,17 +48,8 @@ const getRepairById = async (req, res) => {
 
 const updateRepair = async (req, res ) => {
     try {
-        const { id } = req.params;
-        const { status } = req.body;
-
-        const repair = await Repairs.findOne({where: { id }});
-
-        if(!repair){
-            return res.status(404).json({
-                status: 'error',
-                message: 'repair not found with id'
-            })
-        }
+        const { repair } = req;
+        
 
         await repair.update({ status });
 
@@ -76,15 +59,13 @@ const updateRepair = async (req, res ) => {
 
     } catch (error) {
         console.log(error);
-    }
+    };
 };
 
 
 const deleteRepair = async (req, res) => {
     try {
-        const { id } = req.params;
-
-        const repair = await Repairs.findOne({where: { id }});
+        const { repair } = req;
 
         await repair.update({
             status: 'canceled'

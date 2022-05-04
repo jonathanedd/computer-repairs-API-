@@ -1,5 +1,10 @@
 const  express  = require('express');
 
+//middleware
+const { userExist } = require('../middlewares/users.middleware');
+
+//Router
+const router = express.Router();
 
 //Controller
 const { 
@@ -11,19 +16,18 @@ const {
 } = require('../controllers/users.controller');
 
 
-const router = express.Router(); 
+ 
 
-// HTTP GET
-router.get('/', getAllUsers); 
+// HTTP verbs endpoints
+router
+    .route('/')
+    .get(getAllUsers)
+    .post(createUser)
 
-router.post('/', createUser );
-
-router.get('/:id', getUserById);
-
-router.patch('/:id', updateUser);
-
-router.delete('/:id', deleteUser);
-
-
+router
+    .route('/:id')
+    .get(userExist, getUserById)
+    .patch(userExist, updateUser)
+    .delete(userExist, deleteUser);
 
 module.exports = { userRouter: router }

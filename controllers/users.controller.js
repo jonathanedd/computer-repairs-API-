@@ -34,16 +34,8 @@ const createUser = async (req, res ) => {
 
 const getUserById = async (req, res ) => {
     try {
-        const { id } = req.params;
         
-        const user = await User.findOne({where: { id }});
-
-        if(!user){
-            return res.status(404).json({
-                status: 'error',
-                message: 'user does not exist with id'
-            })
-        };
+        const { user } = req;
 
         res.status(201).json({
             user
@@ -56,17 +48,8 @@ const getUserById = async (req, res ) => {
 
 const updateUser = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { name } = req.body;
-        const { email } = req.body;
-        const user = await User.findOne({where: { id }});
-
-        if(!user){
-            return res.status(404).json({
-                status: 'error',
-                message: 'user not found with id'
-            })
-        }
+        const { user } = req;
+        const { name, email } = req.body;
 
         await user.update({name, email})
 
@@ -75,14 +58,14 @@ const updateUser = async (req, res) => {
         })
     } catch (error) {
         console.log(error);
-    }
+    };
 };
 
 
 const deleteUser = async (req, res) => {
     try {
-        const { id } = req.params;
-        const user = await User.findOne({where: { id }});
+        
+        const { user } = req;
 
         await user.update({
             status: 'Account disabled'
