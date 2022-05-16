@@ -1,12 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const { AppError } = require("../utils/appError");
 
-const createRepairValidation = [
-  body("date").notEmpty().withMessage("Enter a valid date"),
-  body("computerNumber").notEmpty().withMessage("enter a computer number"),
-  body("comments").notEmpty().withMessage("Provide a comment description"),
-];
-
 const createUserValidation = [
   body("name").notEmpty().withMessage("Name cannot be empty"),
   body("email")
@@ -19,6 +13,12 @@ const createUserValidation = [
     .withMessage("Password cannot be empty")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters"),
+];
+
+const createRepairValidation = [
+  body("date").notEmpty().withMessage("Enter a valid date"),
+  body("computerNumber").notEmpty().withMessage("enter a computer number"),
+  body("comments").notEmpty().withMessage("Provide a comment description"),
 ];
 
 const checkValidation = (req, res, next) => {
